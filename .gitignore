@@ -39,3 +39,6 @@ model/top_movies.json
 .idea/
 .vscode/
 *.swp
+
+# Logs
+logs/
