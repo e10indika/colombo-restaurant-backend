@@ -1,0 +1,502 @@
+[
+  {
+    "restaurantId": 391,
+    "name": "AYUBO LEISURE (PVT) LTD",
+    "cuisine": "Restaurant",
+    "location": "Colombo 400",
+    "price_range": "Unknown",
+    "rating": 4.800000190734863,
+    "total_ratings": 14,
+    "busyness_score": 21.1
+  },
+  {
+    "restaurantId": 244,
+    "name": "Broadway Restaurant and Pub",
+    "cuisine": "Restaurant",
+    "location": "Dehiwala",
+    "price_range": "Unknown",
+    "rating": 4.699999809265137,
+    "total_ratings": 146,
+    "busyness_score": 33.2
+  },
+  {
+    "restaurantId": 192,
+    "name": "RAW Organic Handcrafted Juices",
+    "cuisine": "Restaurant",
+    "location": "Colombo",
+    "price_range": "Unknown",
+    "rating": 4.699999809265137,
+    "total_ratings": 35,
+    "busyness_score": 25.2
+  },
+  {
+    "restaurantId": 313,
+    "name": "The Fort Fusion",
+    "cuisine": "Restaurant",
+    "location": "Colombo 100",
+    "price_range": "Unknown",
+    "rating": 4.699999809265137,
+    "total_ratings": 22,
+    "busyness_score": 24.1
+  },
+  {
+    "restaurantId": 149,
+    "name": "Hotel Anna Lakshmi",
+    "cuisine": "Restaurant",
+    "location": "Dehiwala",
+    "price_range": "Unknown",
+    "rating": 4.699999809265137,
+    "total_ratings": 16,
+    "busyness_score": 21.0
+  },
+  {
+    "restaurantId": 185,
+    "name": "Velvet Bean Cafe & Restaurant",
+    "cuisine": "Restaurant",
+    "location": "Nugegoda",
+    "price_range": "Unknown",
+    "rating": 4.699999809265137,
+    "total_ratings": 15,
+    "busyness_score": 18.5
+  },
+  {
+    "restaurantId": 339,
+    "name": "RICE N GRILLZ - Nugegoda",
+    "cuisine": "Restaurant",
+    "location": "Nugegoda",
+    "price_range": "Unknown",
+    "rating": 4.699999809265137,
+    "total_ratings": 11,
+    "busyness_score": 25.5
+  },
+  {
+    "restaurantId": 143,
+    "name": "The Kingsbury Colombo",
+    "cuisine": "Bar & Grill",
+    "location": "Colombo",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 21285,
+    "busyness_score": 61.0
+  },
+  {
+    "restaurantId": 260,
+    "name": "Shangri-La Colombo",
+    "cuisine": "Restaurant",
+    "location": "Colombo 200",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 16729,
+    "busyness_score": 68.0
+  },
+  {
+    "restaurantId": 345,
+    "name": "Arthur's Pizzeria - Mount Lavinia",
+    "cuisine": "Restaurant",
+    "location": "Dehiwala",
+    "price_range": "Moderate",
+    "rating": 4.599999904632568,
+    "total_ratings": 4848,
+    "busyness_score": 57.8
+  },
+  {
+    "restaurantId": 191,
+    "name": "Giovanni's",
+    "cuisine": "Caf\u00e9",
+    "location": "Colombo 500",
+    "price_range": "Moderate",
+    "rating": 4.599999904632568,
+    "total_ratings": 3042,
+    "busyness_score": 64.5
+  },
+  {
+    "restaurantId": 405,
+    "name": "Sushi Kai",
+    "cuisine": "Restaurant",
+    "location": "Colombo 500",
+    "price_range": "Moderate",
+    "rating": 4.599999904632568,
+    "total_ratings": 1745,
+    "busyness_score": 61.6
+  },
+  {
+    "restaurantId": 318,
+    "name": "SakeColombo By Tsukiji Uoichi Japanese Restaurant",
+    "cuisine": "Restaurant",
+    "location": "Colombo 500",
+    "price_range": "Expensive",
+    "rating": 4.599999904632568,
+    "total_ratings": 1118,
+    "busyness_score": 59.5
+  },
+  {
+    "restaurantId": 335,
+    "name": "Nuga Gama",
+    "cuisine": "Restaurant",
+    "location": "Colombo 300",
+    "price_range": "Expensive",
+    "rating": 4.599999904632568,
+    "total_ratings": 1058,
+    "busyness_score": 52.1
+  },
+  {
+    "restaurantId": 201,
+    "name": "The Palestine Bakery",
+    "cuisine": "Restaurant",
+    "location": "Dehiwala",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 242,
+    "busyness_score": 49.7
+  },
+  {
+    "restaurantId": 205,
+    "name": "Mountbaylk",
+    "cuisine": "Takeaway",
+    "location": "Dehiwala",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 85,
+    "busyness_score": 42.4
+  },
+  {
+    "restaurantId": 364,
+    "name": "Pioneer bombay sweets",
+    "cuisine": "Restaurant",
+    "location": "Colombo 1100",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 26,
+    "busyness_score": 23.2
+  },
+  {
+    "restaurantId": 342,
+    "name": "Pastry Home",
+    "cuisine": "Restaurant",
+    "location": "Colombo 500",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 23,
+    "busyness_score": 32.4
+  },
+  {
+    "restaurantId": 188,
+    "name": "Sona Bakers And Caterers",
+    "cuisine": "Bakery",
+    "location": "Colombo",
+    "price_range": "Unknown",
+    "rating": 4.599999904632568,
+    "total_ratings": 16,
+    "busyness_score": 22.0
+  },
+  {
+    "restaurantId": 251,
+    "name": "The Bayleaf",
+    "cuisine": "Bar & Grill",
+    "location": "Colombo 700",
+    "price_range": "Expensive",
+    "rating": 4.5,
+    "total_ratings": 2634,
+    "busyness_score": 53.5
+  },
+  {
+    "restaurantId": 253,
+    "name": "Simply Strawberries by Jagro",
+    "cuisine": "Restaurant",
+    "location": "Colombo 300",
+    "price_range": "Moderate",
+    "rating": 4.5,
+    "total_ratings": 1725,
+    "busyness_score": 58.5
+  },
+  {
+    "restaurantId": 305,
+    "name": "Ceylon Curry Club",
+    "cuisine": "Restaurant",
+    "location": "Colombo 100",
+    "price_range": "Unknown",
+    "rating": 4.5,
+    "total_ratings": 1593,
+    "busyness_score": 54.9
+  },
+  {
+    "restaurantId": 211,
+    "name": "t-lounge by Dilmah \u2013 Chatham Street \ufe0f",
+    "cuisine": "Caf\u00e9",
+    "location": "Colombo 100",
+    "price_range": "Moderate",
+    "rating": 4.5,
+    "total_ratings": 1295,
+    "busyness_score": 51.5
+  },
+  {
+    "restaurantId": 208,
+    "name": "Kang\u2019s Kitchen",
+    "cuisine": "Restaurant",
+    "location": "Colombo 700",
+    "price_range": "Moderate",
+    "rating": 4.5,
+    "total_ratings": 1196,
+    "busyness_score": 54.9
+  },
+  {
+    "restaurantId": 312,
+    "name": "In...on the Green",
+    "cuisine": "Bar & Grill",
+    "location": "Colombo 300",
+    "price_range": "Expensive",
+    "rating": 4.5,
+    "total_ratings": 1164,
+    "busyness_score": 50.7
+  },
+  {
+    "restaurantId": 406,
+    "name": "Ministry of Crab",
+    "cuisine": "Restaurant",
+    "location": "Colombo 100",
+    "price_range": "Luxury",
+    "rating": 4.400000095367432,
+    "total_ratings": 5337,
+    "busyness_score": 58.0
+  },
+  {
+    "restaurantId": 259,
+    "name": "Pizza Hut - Union Place",
+    "cuisine": "Delivery",
+    "location": "Colombo 1000",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 4994,
+    "busyness_score": 65.0
+  },
+  {
+    "restaurantId": 326,
+    "name": "Park Street Mews",
+    "cuisine": "Restaurant",
+    "location": "Colombo 02",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 3012,
+    "busyness_score": 67.4
+  },
+  {
+    "restaurantId": 199,
+    "name": "The Gallery Caf\u00e9",
+    "cuisine": "Restaurant",
+    "location": "Colombo 300",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 2891,
+    "busyness_score": 61.1
+  },
+  {
+    "restaurantId": 227,
+    "name": "Chinese Dragon Cafe - Nugegoda",
+    "cuisine": "Restaurant",
+    "location": "Nugegoda",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 2841,
+    "busyness_score": 54.0
+  },
+  {
+    "restaurantId": 365,
+    "name": "The Bavarian German Restaurant and pub",
+    "cuisine": "Restaurant",
+    "location": "Colombo 300",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 2262,
+    "busyness_score": 54.4
+  },
+  {
+    "restaurantId": 194,
+    "name": "Rocco's",
+    "cuisine": "Caf\u00e9",
+    "location": "Colombo",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 2142,
+    "busyness_score": 64.0
+  },
+  {
+    "restaurantId": 151,
+    "name": "Pizza Hut - Bambalapitiya",
+    "cuisine": "Delivery",
+    "location": "Colombo 400",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 2053,
+    "busyness_score": 59.7
+  },
+  {
+    "restaurantId": 287,
+    "name": "Pizza Hut - Borella",
+    "cuisine": "Delivery",
+    "location": "Colombo 1000",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 1829,
+    "busyness_score": 55.9
+  },
+  {
+    "restaurantId": 371,
+    "name": "ON14 Rooftop Lounge & Bar",
+    "cuisine": "Bar & Grill",
+    "location": "Colombo 400",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 1559,
+    "busyness_score": 49.8
+  },
+  {
+    "restaurantId": 336,
+    "name": "Dolce Italia",
+    "cuisine": "Restaurant",
+    "location": "Colombo 50000",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 1445,
+    "busyness_score": 62.3
+  },
+  {
+    "restaurantId": 252,
+    "name": "Cafe Noir Blanc",
+    "cuisine": "Restaurant",
+    "location": "Colombo 500",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 1436,
+    "busyness_score": 53.2
+  },
+  {
+    "restaurantId": 203,
+    "name": "Bellagio Colombo",
+    "cuisine": "Restaurant",
+    "location": "Colombo",
+    "price_range": "Unknown",
+    "rating": 4.400000095367432,
+    "total_ratings": 1412,
+    "busyness_score": 62.1
+  },
+  {
+    "restaurantId": 215,
+    "name": "Burger King - Fort",
+    "cuisine": "Restaurant",
+    "location": "Colombo 100",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 1284,
+    "busyness_score": 50.4
+  },
+  {
+    "restaurantId": 168,
+    "name": "FLOW",
+    "cuisine": "Restaurant",
+    "location": "Colombo 200",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 1235,
+    "busyness_score": 52.2
+  },
+  {
+    "restaurantId": 374,
+    "name": "Colombo Court Hotel & Spa",
+    "cuisine": "Bar & Grill",
+    "location": "Colombo 300",
+    "price_range": "Unknown",
+    "rating": 4.400000095367432,
+    "total_ratings": 1232,
+    "busyness_score": 51.1
+  },
+  {
+    "restaurantId": 161,
+    "name": "Harbour Court",
+    "cuisine": "Restaurant",
+    "location": "Colombo 100",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 1101,
+    "busyness_score": 57.3
+  },
+  {
+    "restaurantId": 154,
+    "name": "Mitsis Delicacies",
+    "cuisine": "Restaurant",
+    "location": "Colombo 300",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 774,
+    "busyness_score": 57.9
+  },
+  {
+    "restaurantId": 288,
+    "name": "Home Cooking Fast Foods",
+    "cuisine": "Restaurant",
+    "location": "Nugegoda",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 754,
+    "busyness_score": 46.7
+  },
+  {
+    "restaurantId": 234,
+    "name": "Royal Thai - Cinnamon Lakeside",
+    "cuisine": "Restaurant",
+    "location": "Colombo",
+    "price_range": "Unknown",
+    "rating": 4.400000095367432,
+    "total_ratings": 708,
+    "busyness_score": 51.2
+  },
+  {
+    "restaurantId": 292,
+    "name": "Caf\u00e9 La Defense",
+    "cuisine": "Caf\u00e9",
+    "location": "Colombo 500",
+    "price_range": "Moderate",
+    "rating": 4.400000095367432,
+    "total_ratings": 674,
+    "busyness_score": 53.9
+  },
+  {
+    "restaurantId": 293,
+    "name": "Ginza Hohsen",
+    "cuisine": "Restaurant",
+    "location": "Colombo 100",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 513,
+    "busyness_score": 43.0
+  },
+  {
+    "restaurantId": 283,
+    "name": "Zylan Colombo",
+    "cuisine": "Restaurant",
+    "location": "Colombo 700",
+    "price_range": "Unknown",
+    "rating": 4.400000095367432,
+    "total_ratings": 425,
+    "busyness_score": 43.6
+  },
+  {
+    "restaurantId": 235,
+    "name": "Yue Chuan",
+    "cuisine": "Restaurant",
+    "location": "Colombo",
+    "price_range": "Expensive",
+    "rating": 4.400000095367432,
+    "total_ratings": 369,
+    "busyness_score": 47.7
+  },
+  {
+    "restaurantId": 369,
+    "name": "Tropic Inn - Mount Lavinia",
+    "cuisine": "Takeaway",
+    "location": "Dehiwala",
+    "price_range": "Unknown",
+    "rating": 4.400000095367432,
+    "total_ratings": 212,
+    "busyness_score": 46.8
+  }
+]

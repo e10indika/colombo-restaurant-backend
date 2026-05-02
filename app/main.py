@@ -25,14 +25,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.model.als_model import load_resources
 from app.schemas.response import (
     RecommendationResponse,
+    RestaurantListResponse,
     TopRestaurantsResponse,
     TrendingAnalyticsResponse,
 )
 from app.services.recommendation_service import (
     fetch_recommendations,
+    fetch_restaurants,
     fetch_top_restaurants,
     fetch_trending_analytics,
 )
+from app.config import CORS_ORIGINS
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s  %(name)s  %(message)s')
 logger = logging.getLogger(__name__)
@@ -56,16 +59,9 @@ app = FastAPI(
 )
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-import os
-_cors_origins = [
-    o.strip()
-    for o in os.getenv('CORS_ORIGINS', 'http://localhost:3000').split(',')
-    if o.strip()
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_cors_origins,
+    allow_origins=CORS_ORIGINS,
     allow_methods=['*'],
     allow_headers=['*'],
 )
@@ -76,6 +72,35 @@ app.add_middleware(
 @app.get('/', tags=['Health'])
 def health_check():
     return {'status': 'ok', 'service': 'Colombo Restaurant Recommendation API'}
+
+
+@app.get('/restaurants', response_model=RestaurantListResponse, tags=['Restaurants'])
+def get_restaurants(
+    cuisine:     Optional[str]   = Query(None),
+    district:    Optional[str]   = Query(None),
+    price_range: Optional[str]   = Query(None),
+    min_rating:  Optional[float] = Query(None, ge=0, le=5),
+    sort_by:     str             = Query(default='rating', regex='^(rating|popularity|price|reviews)$'),
+    limit:       int             = Query(default=50, ge=1, le=200),
+):
+    """
+    Browse all restaurants with optional filters.
+
+    Queries the 'restaurants' Spark temp view registered from colombo_restaurants.csv.
+    """
+    try:
+        restaurants, total = fetch_restaurants(
+            cuisine=cuisine,
+            district=district,
+            price_range=price_range,
+            min_rating=min_rating,
+            sort_by=sort_by,
+            limit=limit,
+        )
+        return RestaurantListResponse(restaurants=restaurants, total=total)
+    except Exception as exc:
+        logger.exception('Error fetching restaurants')
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
 
 
 @app.get('/recommend/{user_id}', response_model=RecommendationResponse, tags=['Recommendations'])

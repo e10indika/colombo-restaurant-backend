@@ -107,8 +107,8 @@ if [[ "$DO_TRAIN" == "true" ]]; then
   detail "Training on $ROW_COUNT restaurants with 200 synthetic users"
   detail "Spark output → $TRAIN_LOG"
 
-  run_with_log "$TRAIN_LOG" "train_and_save.py" \
-    bash -c "cd '$PROJECT_DIR' && '$VENV_PYTHON' train_and_save.py"
+  run_with_log "$TRAIN_LOG" "training/train.py" \
+    bash -c "cd '$PROJECT_DIR' && '$VENV_PYTHON' -m training.train"
 
   success "Model training complete  (log: $TRAIN_LOG)"
   detail "Model saved → $PROJECT_DIR/model/saved_als_model"

@@ -53,6 +53,24 @@ class TopRestaurantsResponse(BaseModel):
     restaurants: List[TopRestaurant]
 
 
+# ── /restaurants ─────────────────────────────────────────────────────────────
+
+class RestaurantItem(BaseModel):
+    restaurantId:   str   = Field(..., example='ChIJN1t_tDeuEmsRUsoyG83frY4')
+    name:           str   = Field(..., example='Ministry of Crab')
+    cuisine:        str   = Field(..., example='Seafood')
+    location:       str   = Field(..., example='Colombo 01')
+    price_range:    str   = Field(..., example='Expensive')
+    rating:         float = Field(..., example=4.6)
+    total_ratings:  int   = Field(..., example=4821)
+    busyness_score: float = Field(..., example=91.2)
+
+
+class RestaurantListResponse(BaseModel):
+    restaurants: List[RestaurantItem]
+    total:       int
+
+
 # ── /analytics/trending ───────────────────────────────────────────────────────
 
 class TrendingCuisine(BaseModel):

@@ -7,115 +7,21 @@ across all requests — avoids the multi-second cost of re-creating a SparkSessi
 
 import logging
 import os
-import re
-from typing import Dict, Optional
 
 from pyspark.ml.recommendation import ALSModel
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.types import FloatType, IntegerType, StringType
 
+from app.utils.metadata import _CUISINE_MAP, extract_cuisine, extract_location, price_label
+from app.config import MODEL_PATH, RESTAURANTS_CSV
+
 logger = logging.getLogger(__name__)
 
-# ── Path resolution (all overrideable via environment variables) ───────────────
-_REPO_ROOT       = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-MODEL_PATH       = os.getenv('MODEL_PATH',       os.path.join(_REPO_ROOT, 'model', 'saved_als_model'))
-RESTAURANTS_CSV  = os.getenv('RESTAURANTS_CSV',  os.path.join(_REPO_ROOT, 'data',  'colombo_restaurants.csv'))
-
 # ── Module-level singletons ────────────────────────────────────────────────────
-_spark:               Optional[SparkSession] = None
-_model:               Optional[ALSModel]     = None
-_restaurants_lookup:  Dict[int, dict]        = {}   # restaurantId → metadata dict
-
-
-# ── Metadata extraction helpers ───────────────────────────────────────────────
-
-# Map Google Places type tokens → human-readable cuisine labels.
-# Keys are checked in order against the comma-separated 'types' column.
-_CUISINE_MAP: Dict[str, str] = {
-    'indian_restaurant':        'Indian',
-    'chinese_restaurant':       'Chinese',
-    'italian_restaurant':       'Italian',
-    'japanese_restaurant':      'Japanese',
-    'thai_restaurant':          'Thai',
-    'seafood_restaurant':       'Seafood',
-    'fast_food_restaurant':     'Fast Food',
-    'pizza_restaurant':         'Pizza',
-    'hamburger_restaurant':     'Burgers',
-    'vegetarian_restaurant':    'Vegetarian',
-    'steak_house':              'Steakhouse',
-    'sushi_restaurant':         'Sushi',
-    'korean_restaurant':        'Korean',
-    'vietnamese_restaurant':    'Vietnamese',
-    'middle_eastern_restaurant':'Middle Eastern',
-    'mexican_restaurant':       'Mexican',
-    'turkish_restaurant':       'Turkish',
-    'lebanese_restaurant':      'Lebanese',
-    'bakery':                   'Bakery',
-    'cafe':                     'Café',
-    'bar':                      'Bar & Grill',
-    'meal_takeaway':            'Takeaway',
-    'meal_delivery':            'Delivery',
-    'buffet_restaurant':        'Buffet',
-    'breakfast_restaurant':     'Breakfast',
-    'brunch_restaurant':        'Brunch',
-    'food_court':               'Food Court',
-    'ice_cream_shop':           'Desserts',
-    'sandwich_shop':            'Sandwiches',
-    'coffee_shop':              'Coffee',
-}
-
-_PRICE_LABELS: Dict[int, str] = {
-    0: 'Budget',
-    1: 'Inexpensive',
-    2: 'Moderate',
-    3: 'Expensive',
-    4: 'Very Expensive',
-}
-
-# Named Colombo areas to recognise in address strings
-_NAMED_AREAS = [
-    'Nugegoda', 'Dehiwala', 'Mount Lavinia', 'Borella', 'Pettah',
-    'Maradana', 'Wellawatte', 'Bambalapitiya', 'Kollupitiya',
-    'Cinnamon Gardens', 'Fort',
-]
-
-
-def extract_cuisine(types_str: Optional[str]) -> str:
-    """Return the most specific cuisine label found in a comma-separated Places types string."""
-    if not types_str:
-        return 'Restaurant'
-    tokens = [t.strip().lower() for t in types_str.split(',')]
-    for token in tokens:
-        if token in _CUISINE_MAP:
-            return _CUISINE_MAP[token]
-    return 'Restaurant'
-
-
-def extract_location(address: Optional[str]) -> str:
-    """
-    Extract the Colombo district or named area from a full address string.
-    e.g. '10 Galle Road, Colombo 03, Sri Lanka' → 'Colombo 03'
-    """
-    if not address:
-        return 'Colombo'
-    # Prefer "Colombo NN" pattern
-    match = re.search(r'Colombo\s+(\d+)', address, re.IGNORECASE)
-    if match:
-        return f'Colombo {int(match.group(1)):02d}'
-    # Fall back to known named areas
-    for area in _NAMED_AREAS:
-        if area.lower() in address.lower():
-            return area
-    return 'Colombo'
-
-
-def price_label(price_level) -> str:
-    """Convert a numeric Google price_level (0–4) to a human-readable string."""
-    try:
-        return _PRICE_LABELS.get(int(price_level), 'Unknown')
-    except (TypeError, ValueError):
-        return 'Unknown'
+_spark:               SparkSession | None = None
+_model:               ALSModel | None     = None
+_restaurants_lookup:  dict                = {}   # restaurantId → metadata dict
 
 
 # ── Spark setup ────────────────────────────────────────────────────────────────
@@ -188,12 +94,52 @@ def load_resources() -> None:
         .orderBy('place_id')
     )
 
-    # Add derived columns used by analytics and response enrichment
+    # Add derived columns — pure Spark expressions, no UDFs (UDFs cause
+    # RecursionError when Spark tries to pickle module-level globals).
+    cuisine_col = (
+        F.when(F.col('types').contains('indian_restaurant'),        'Indian')
+         .when(F.col('types').contains('chinese_restaurant'),       'Chinese')
+         .when(F.col('types').contains('italian_restaurant'),       'Italian')
+         .when(F.col('types').contains('japanese_restaurant'),      'Japanese')
+         .when(F.col('types').contains('thai_restaurant'),          'Thai')
+         .when(F.col('types').contains('seafood_restaurant'),       'Seafood')
+         .when(F.col('types').contains('fast_food_restaurant'),     'Fast Food')
+         .when(F.col('types').contains('pizza_restaurant'),         'Pizza')
+         .when(F.col('types').contains('hamburger_restaurant'),     'Burgers')
+         .when(F.col('types').contains('vegetarian_restaurant'),    'Vegetarian')
+         .when(F.col('types').contains('steak_house'),              'Steakhouse')
+         .when(F.col('types').contains('sushi_restaurant'),         'Sushi')
+         .when(F.col('types').contains('korean_restaurant'),        'Korean')
+         .when(F.col('types').contains('vietnamese_restaurant'),    'Vietnamese')
+         .when(F.col('types').contains('middle_eastern_restaurant'),'Middle Eastern')
+         .when(F.col('types').contains('bakery'),                   'Bakery')
+         .when(F.col('types').contains('cafe'),                     'Café')
+         .when(F.col('types').contains('bar'),                      'Bar & Grill')
+         .when(F.col('types').contains('ice_cream_shop'),           'Desserts')
+         .otherwise('Restaurant')
+    )
+
+    location_col = F.when(
+        F.regexp_extract(F.col('address'), r'(?i)Colombo\s+(\d+)', 1) != '',
+        F.concat(F.lit('Colombo '), F.lpad(
+            F.regexp_extract(F.col('address'), r'(?i)Colombo\s+(\d+)', 1), 2, '0'
+        )),
+    ).otherwise(F.lit('Colombo'))
+
+    price_range_col = (
+        F.when(F.col('price_level') == 0, 'Budget')
+         .when(F.col('price_level') == 1, 'Inexpensive')
+         .when(F.col('price_level') == 2, 'Moderate')
+         .when(F.col('price_level') == 3, 'Expensive')
+         .when(F.col('price_level') == 4, 'Very Expensive')
+         .otherwise('Unknown')
+    )
+
     restaurants_df = (
         raw_df
-        .withColumn('cuisine',     F.udf(extract_cuisine,  StringType())('types'))
-        .withColumn('location',    F.udf(extract_location, StringType())('address'))
-        .withColumn('price_range', F.udf(price_label,      StringType())('price_level'))
+        .withColumn('cuisine',     cuisine_col)
+        .withColumn('location',    location_col)
+        .withColumn('price_range', price_range_col)
     )
 
     # Register as Spark SQL temp view so the analytics service can run SQL queries

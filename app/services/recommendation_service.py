@@ -10,20 +10,10 @@ import logging
 import os
 from typing import Any, Dict, List, Tuple
 
-from pyspark.sql.types import IntegerType, StructField, StructType
-
 from app.model.als_model import get_model, get_restaurants_lookup, get_spark
+from app.config import TOP_RESTAURANTS_PATH
 
 logger = logging.getLogger(__name__)
-
-_REPO_ROOT           = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
-TOP_RESTAURANTS_PATH = os.getenv(
-    'TOP_RESTAURANTS_PATH',
-    os.path.join(_REPO_ROOT, 'model', 'top_restaurants.json'),
-)
-
-
-# ── Internal helpers ──────────────────────────────────────────────────────────
 
 def _enrich(restaurant_id: int, predicted_rating: float) -> Dict[str, Any]:
     """
@@ -93,8 +83,10 @@ def fetch_recommendations(
     spark = get_spark()
     model = get_model()
 
-    user_schema = StructType([StructField('userId', IntegerType(), False)])
-    user_df     = spark.createDataFrame([(user_id,)], schema=user_schema)
+    # Use spark.sql() with an integer literal — avoids Python→JVM pickle entirely.
+    # spark.createDataFrame([(user_id,)], ...) always goes through the Python RDD
+    # pickle path and raises RecursionError on Python 3.12+.
+    user_df = spark.sql(f"SELECT CAST({int(user_id)} AS INT) AS userId")
 
     recs_rows = (
         model.recommendForUserSubset(user_df, numItems=top_n)
@@ -126,11 +118,22 @@ def fetch_top_restaurants(limit: int = 20) -> List[Dict[str, Any]]:
     if not os.path.exists(TOP_RESTAURANTS_PATH):
         raise FileNotFoundError(
             f'top_restaurants.json not found at {TOP_RESTAURANTS_PATH}. '
-            'Run `python train_and_save.py` first.'
+            'Run `./run.sh --train` first.'
         )
     with open(TOP_RESTAURANTS_PATH) as f:
         all_restaurants = json.load(f)
     return all_restaurants[:limit]
+
+
+def fetch_restaurants(cuisine=None, district=None, price_range=None,
+                      min_rating=None, sort_by='rating', limit=50):
+    """Delegate to repository layer."""
+    from app.repositories.restaurant_repo import query_restaurants
+    return query_restaurants(
+        get_spark(),
+        cuisine=cuisine, district=district, price_range=price_range,
+        min_rating=min_rating, sort_by=sort_by, limit=limit,
+    )
 
 
 def fetch_trending_analytics() -> Dict[str, Any]:
